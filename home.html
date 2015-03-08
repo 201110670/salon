@@ -1,0 +1,770 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+  <link rel="stylesheet" type="text/css" href="css/jquery.mobile.flatui.css" />
+  <script src="js/jquery.js"></script>
+  <script src="js/jquery.mobile-1.4.0.min.js"></script>
+    <script type="text/javascript" src="engine1/wowslider.js"></script>
+    <script type="text/javascript" src="engine1/script.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    
+    <link rel="stylesheet" type="text/css" href="engine1/style.css" />
+  <style>
+      tr {
+          border-bottom: 1px solid #d6d6d6;
+      }
+	  #wowslider-container1{
+	   margin: 0px;
+	   
+        padding: 0px;width:100%;		
+		}
+		
+		#map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+  </style>
+</head>
+<body onload="loadAjax()">
+
+    <div data-role="page" id="servicesPage" data-theme="d">
+        <div data-role="header">
+
+            <a href="#mypanel" data-icon="grid" data-iconpos="notext" data-theme="d" data-inline="true" data-role="button">left</a>
+            <h1>Salon 360 Services</h1>
+            <div data-role="navbar">
+                <ul>
+
+                    <li><a href="" data-transition="slide" data-icon="info">Services</a></li>
+                    <li><a href="#reservationPage" data-theme="c" data-transition="slide" data-icon="star">Reservation</a></li>
+                    <li><a href="#contactPage" data-transition="slide" data-theme="c" data-icon="phone">Contact</a></li>
+
+                </ul>
+            </div>
+
+
+        </div>
+        <div data-role="content">
+          
+            <form>
+                <input id="filterTable-input" data-type="search">
+            </form>
+            <table data-role="table" data-filter="true" data-mode="columntoggle" data-column-btn-text="" data-input="#filterTable-input" class="ui-responsive ui-shadow">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Price</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td>Hair Cut</td>
+                        <td>40.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Hair Spa</td>
+                        <td>100.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Hair Mask</td>
+                        <td>150.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Highlights</td>
+                        <td>200.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Cellophane</td>
+                        <td>250.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Foot Spa</td>
+                        <td>100.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Pedicure</td>
+                        <td>60.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Manicure</td>
+                        <td>50.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Foot Parafin</td>
+                        <td>150.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Japanese Hot Oil</td>
+                        <td>200.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Eyelash Perming</td>
+                        <td>200.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Eyelash Extension</td>
+                        <td>500.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Hair color with hair tratment</td>
+                        <td>250.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Hair Rebond with hair tratment</td>
+                        <td>500.00</td>
+                    </tr>
+                    <tr>
+
+                        <td>Brazillian Blowout</td>
+                        <td>1500.00</td>
+                    </tr>
+
+
+                </tbody>
+            </table>		
+	
+			</div>
+
+
+ 
+		 <!--Left Panel-->
+
+        <div data-role="panel" data-display="reveal" id="mypanel" >
+
+
+
+            <ul data-role="listview" data-theme="d">
+                <li data-role="list-divider" data-theme="d"></li>
+                <li data-role="list-divider" data-theme="d">
+                    <div id="paneluserinfo" style="text-align:right;"></div>
+                </li>
+                <li data-role="list-divider" data-theme="d"></li>
+                <li data-role="list-divider" data-theme="c"></li>
+                <li data-role="list-divider" data-theme="c">Menu</li>
+                <li data-role="list-divider" data-theme="c"></li>
+
+                <li id="btn-home" class="inBar"><a href="#termsdialog">Terms and Conditions</a></li>
+                <li id="btn-about" class="inBar"><a href="#aboutdialog">About</a></li>
+
+                <li id="loginhider" class="inBar"><a href="#logindialog" id="btn-login">Login</a></li>
+
+                <li id="loginhider" class="inBar"><a href="#registerdialog" id="btn-login">Register</a></li>
+                <li id="logouthider" onclick="logout1()" class="inBar" ><a href="" id="btn-logout">Logout</a></li>
+
+            </ul>
+
+
+        </div>
+  
+    </div>
+
+        <div id="logindialog" data-role="dialog" data-title="Login to Salon 360" data-theme="d">
+            <div data-role="header" data-theme="c">
+                <h1>Login to Salon 360</h1>
+            </div>
+            <div data-role="content">
+                <form id="hideme" action="#">
+                    <label>Email:</label>
+                    <input type="email" class="form-control" name="username" id="username" placeholder="Email" required />
+                    <label>Password:</label>
+                    <input type="password" class="form-control" name="pass" id="lpass" placeholder="Password" required />
+
+
+                  
+                        <input type="submit" name="submit" value="Log In" />
+                
+                </form>
+
+
+
+            </div>
+
+        </div>
+        <div id="aboutdialog" data-role="dialog"  data-theme="d">
+            <div data-role="header" data-theme="c">
+            <h1></h1>
+            </div>
+            <div data-role="content">
+              <center>
+			  <h3><b>    <h1>Developed by:</h1></b>
+		
+		
+			  <h3><br>
+			  <img src="img/dev.png" style="width:90%;">
+			  <br><br>	  
+			  Special thanks to:<br><br>
+			  Maam Eldee Magpale<br>
+			  Prof. Arturo Casenas<br>
+			  Classmates<br>
+			  Family<br>
+			  Friends<br>
+			  
+			  
+			  
+			</center>
+
+            </div>
+
+        </div>
+		
+		        <div id="termsdialog" data-role="dialog"  data-theme="d">
+            <div data-role="header" data-theme="c">
+                <h1></h1>
+            </div>
+            <div data-role="content">
+    	<center><h1>Reservation Terms and Conditions</h1>
+						
+								Salon 360 Terms of Services<br /><br />
+								Thanks for using our services. The content of this mobile application is for your general information and use only. <br />
+								By using our Reservation Services you are agreeing to these terms and Please read them carefully.<br /><br /> 
+
+Reservation:<br />
+Here are some additional terms or requirements may apply. <br /><br />If you are 15 minutes to 20 minutes late will not be accomodate and you can use Credit card for the payment. <br /><br />
+
+Your Account:<br />
+You may need an account in order to use of our services. You may create your own account and it may be assigned to you by an administrator.
+							</center>
+
+
+            </div>
+
+        </div>
+
+    <div id="registerdialog" data-role="dialog" data-title="Login to Salon 360" data-theme="d">
+        <div data-role="header" data-theme="c">
+            <h1>Register to Salon 360</h1>
+        </div>
+        <div data-role="content">
+ 
+
+            <form id="signupform" action="#">
+                <b>First Name*:</b>
+                <input type="text" class="form-control" name="firstname" id="firstname" maxlength="150">
+                <small id="errorfullname" style="color:#ff0000;display:block"></small>
+                <b>Last Name*:</b>
+                <input type="text" class="form-control" name="lastname" id="lastname" maxlength="150">
+                <small id="errorlastname" style="color:#ff0000;display:block"></small>
+                <b>Address*:</b>
+                <input type="text" class="form-control" name="address" id="address" maxlength="150">
+                <small id="erroraddress" style="color:#ff0000;display:block"></small>
+                <b>Contact #*:</b>
+                <input type="text" class="form-control" name="contact" id="contact" maxlength="150">
+                <small id="errorcontact" style="color:#ff0000;display:block"></small>
+                <b>Date of Birth*:</b>
+                <input type="text" class="form-control" name="bdate" id="bdate" maxlength="150">
+                <small id="errorbdate" style="color:#ff0000;display:block"></small>
+                <b>E-Mail*:</b>
+                <input type="email" class="form-control" name="email" id="email" maxlength="50">
+                <small id="erroremail" style="color:#ff0000;display:block"></small>
+                <b>Username*:</b>
+                <small style="color:#2373a5"><br>8-15 Characters, Alphanumeric Characters</small>
+                <input type="text" class="form-control" name="username" id="username" maxlength="15">
+                <small id="errorusername" style="color:#ff0000;display:block"></small>
+                <b>Password*:</b>
+                <small style="color:#2373a5"><br>8-15 Characters, Alphanumeric Characters</small>
+                <input type="password" class="form-control" name="password" id="password" maxlength="15">
+                <small id="errorpass" style="color:#ff0000;display:block"></small>
+                <b>Confirm Password*:</b>
+                <input type="password" class="form-control" name="cpassword" id="cpassword" maxlength="15">
+                <small id="errorcpass" style="color:#ff0000;display:block"></small>
+            </form>
+            <input type="submit" value="Submit" id="btnsubmit" form="signupform">
+
+
+        </div>
+
+    </div>
+
+
+    <div data-role="page" id="reservationPage" data-theme="d">
+        <div data-role="header">
+
+                    <h1>Salon 360 Reservation</h1>
+            <div data-role="navbar">
+                <ul>
+
+                    <li><a href="#servicesPage" data-theme="c" data-transition="slide" data-direction="reverse" data-icon="info" >Services</a></li>
+                    <li><a href=""  data-transition="slide" data-icon="star">Reservation</a></li>
+                    <li><a href="#contactPage" data-transition="slide" data-theme="c" data-icon="phone">Contact</a></li>
+
+                </ul>
+            </div>
+        
+        </div>
+        <div data-role="content">
+            <div id="notloggedinreserve" class="ui-body ui-body-d">
+                <center><br><br><br>
+                Log in to access reservation service<br><br>
+                <a href="#logindialog" data-theme="c" data-inline="true" data-role="button"> Log In </a><br>
+                <a href="#registerdialog" data-theme="c" data-inline="true" data-role="button"> Register </a>
+                    <br><br><br>
+                </center>
+            </div>
+
+            <div id="loggedinreserve">
+                
+                    BRANCHES:<div id="branches"></div>
+              
+                   
+                        Date Reservation:
+                      
+                            <fieldset data-role="controlgroup" data-type="horizontal">
+                                <select onchange="fn_validation_res_form('checkonly')" id="month">
+                                    <option value="">SELECT</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                                <select onchange="fn_validation_res_form('checkonly')" id="date">
+                                    <option value="">SELECT</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                </select>
+                                <select onchange="fn_validation_res_form('checkonly')" id="year">
+                                    <option value="">SELECT</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
+                                    <option value="2018">2018</option>
+                                    <option value="2019">2019</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                </select>
+                            </fieldset>
+                   
+                
+                 
+                        Time Reservation(H/M-AM/PM):
+                   
+                            <fieldset data-role="controlgroup" data-type="horizontal">
+                                <select onchange="fn_validation_res_form('checkonly')" name="" id="idselect_sh">
+
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <select onchange="fn_validation_res_form('checkonly')" name="" id="idselect_sm">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+
+                                </select>
+                                <select onchange="fn_validation_res_form('checkonly')" name="" id="idselect_su">
+                              
+									<option value="pm">PM</option>
+									<option value="am">AM</option>
+                                
+                                </select>
+                            </fieldset>
+							<select id="idselect_typeservice" onchange="fn_recal(document.getElementById(this.id).value)">
+                    <option value="SELECT">SELECT</option>
+                    <option value="ris">Reserve in Shop</option>
+                    <option value="hs">Home Service</option>
+                </select>
+				
+                <label>Service</label>
+				<div  style="display:none;" id="ris">
+                <select style="width:70%;"  onchange="fn_validation_res_form('checkonly')" class="idselect_service">
+				<option></option>
+				<option>Manicure</option>
+				<option>Hair Cut</option>
+				<option>Hair Spa</option>
+				<option>Highlights</option>
+				<option>Cellophane</option>
+				<option>Foot Spa</option>
+				<option>Pedicure</option>
+				<option>Manicure</option>
+				<option>Foot Paraffin</option>
+				<option>Japanese Hot Oil</option>
+				<option>Eyelash Perming</option>
+				<option>Eyelash Extension</option>
+				<option>Hair color with hair tratment</option>
+				<option>Hair Rebond with hair tratment</option>
+				<option>Brazillian Blowout</option>
+				</select>
+				</div>
+				<div  style="display:none;" id="home">
+				<select style="width:70%;" onchange="fn_validation_res_form('checkonly')" class="idselect_service">
+				<option></option>
+				</select>
+				</div>
+                    <label>
+                        Choose Available Stylist:
+
+                    </label>
+                 <input type="hidden" value="1" id="idhidden_stylistID" />
+
+                <div id="iddiv_stylist" style="width:100%;height: 100%;border: 2px solid #20A0A0;overflow:auto;"></div>
+                <label>FirstName</label>
+                <input type="text" id="idtxt_fname" required />
+                <label>LastName</label>
+                <input type="text" id="idtxt_lname" required />
+                <label>Address</label>
+                <input type="text" id="idtxt_address" required />
+                <label>Email</label>
+                <input type="email" id="idtxt_email" required />
+                <label>Contact #</label>
+                <input type="text" id="idtxt_cn" required />
+                <label>Type of Service</label>
+                
+                <br><br>
+                <input type="button" class="btn_submit" data-theme="c" onclick="fn_validation_res_form();" value="Reserve" />
+                <div id="idbtn_caption_res_form" type="button" class="btn_submit" style="font-size:25px;color:red;margin-right:5px;display:none;" value="Error">Error</div>
+
+
+            </div>
+
+
+            </div>
+
+
+
+  
+ 
+
+    </div>
+	
+    <div data-role="page" id="contactPage" data-theme="d">
+        <div data-role="header">
+
+            <h1>Contact Us</h1>
+            <div data-role="navbar">
+                <ul>
+
+                    <li><a href="#servicesPage" data-theme="c" data-transition="slide" data-direction="reverse" data-icon="info">Services</a></li>
+                    <li><a href="#reservationPage" data-theme="c" data-transition="slide" data-direction="reverse" data-icon="star">Reservation</a></li>
+                    <li><a href="#" data-icon="phone">Contact</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div data-role="content">
+            <div class="ui-body ui-body-e">
+                <center>
+					
+					<br /><br />we are open from mon-sun 9am-9pm<br />
+we offer Home service for debut,<br /><br />
+please inquire at the cashier for the rates.<br /><br />
+contacts Us at <br /><br />
+09394818464<br /><br />
+28 VILLA BLDG. GORDON AVE. NEW ASINAN, OLONGAPO CITY<br /><br />
+					 <div id="map-canvas"></div>
+					 
+					 </center>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+	<script>
+
+        var a = localStorage.getItem("datauser");
+        if (a == null || a == "" || a == "null" || a == "undefined") {
+            $("#logouthider").hide("fast");
+            $("#paneluserinfo").html("Login or Signup Now!");
+            $("#loggedinreserve").hide("fast");
+
+        }
+        else {
+            $("#loginhider").hide("fast");
+            $("#paneluserinfo").html(a);
+            $("#notloggedinreserve").hide("fast");
+        }
+       function logout1() {
+            localStorage.removeItem("datauser");
+            alert('Log out sucessfull');
+			location.href="home.html";
+       }
+
+       function loadAjax() {
+
+           var xmlhttp;
+           if (window.XMLHttpRequest) {
+               xmlhttp = new XMLHttpRequest();
+           } else {
+               xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+           }
+           xmlhttp.onreadystatechange = function () {
+               if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                   document.getElementById("branches").innerHTML = xmlhttp.responseText;
+               }
+           }
+           xmlhttp.open("GET", "http://salon360.byethost11.com/salon360mobileapp/branches.php", true);
+           xmlhttp.send();
+       }
+
+
+       function fn_validation_res_form(str_p_checkStylistAvailability) {
+           var str_timein = "";
+           var str_timeout = 60;
+           str_timein = $("#idselect_sh").val() + ":" + $("#idselect_sm").val() + ":00";
+           var str_timein_arr = str_timein.split(":");
+           if ($("#idselect_su").val() == "pm") {
+               var str_timein_temp = (12 * 1) + (str_timein_arr[0] * 1);
+               str_timein = str_timein_temp + ":" + str_timein_arr[1] + ":" + str_timein_arr[2];
+           }
+
+           var str_timeout_arr = str_timein.split(":");
+           str_timeout = ((str_timeout_arr[0] * 1) + (1 * 1)) + ":" + str_timeout_arr[1] + ":" + str_timeout_arr[2];
+
+           if (str_p_checkStylistAvailability) {
+               $.post("http://salon360.byethost11.com/salon360mobileapp/reservation_add.php", {
+                   datepicker: $("#year").val() + "-" + $("#month").val() + "-" + $("#date").val(),
+                   str_timein: str_timein,
+                   str_timeout: str_timeout,
+                   idselect_branch: $("#idselect_branch option:selected").text(),
+                   idhidden_stylistID: $("#idhidden_stylistID").val(),
+				   idselect_service_text: $(".idselect_service option:selected").text(),
+                   str_p_checkStylistAvailability: str_p_checkStylistAvailability
+				   
+               },
+       function (output) {
+		
+           $("#iddiv_stylist").html(output);
+           $("#idhidden_stylistID").val("");
+           $("#iddiv_stylist_block").fadeOut(500);
+       });
+               return true;
+           }
+           if ($("#idhidden_stylistID").val() != "" && $("#idtxt_fname").val() != "" && $("#idtxt_lname").val() != "" && $("#idtxt_address").val() != "" && $("#idtxt_email").val() != "" && $("#idtxt_cn").val() != "" && $("#datepicker").val() != "" && $("#idselect_branch").val() != "SELECT" && $("#idselect_typeservice").val() != "SELECT") {
+if(str_timeout > "09:00:00" && str_timeout < "21:30:00"){
+               $.post("http://salon360.byethost11.com/salon360mobileapp/reservationfunction.php", {
+                   idtxt_fname: $("#idtxt_fname").val(),
+                   idtxt_lname: $("#idtxt_lname").val(),
+                   idtxt_address: $("#idtxt_address").val(),
+                   idtxt_email: $("#idtxt_email").val(),
+                   idtxt_cn: $("#idtxt_cn").val(),
+                   datepicker: $("#year").val() + "-" + $("#month").val() + "-" + $("#date").val(),
+                   str_timein: str_timein,
+                   str_timeout: str_timeout,
+                   idselect_branch: $("#idselect_branch option:selected").text(),
+                   idselect_typeservice: $("#idselect_typeservice").val(),
+                   idselect_service: $(".idselect_service").val(),
+                   idhidden_stylistID: $("#idhidden_stylistID").val()
+               },
+               function (output) {
+                   alert("success");
+                   $("#idbtn_caption_res_form").html(output).fadeIn(500);
+               });
+           }else{
+		   $("#idbtn_caption_res_form").html(str_timeout + "=Sorry!. but we cannot reserve at this time because our shop is open only from 9am - 9pm. Thank You.").fadeIn(200).fadeOut(1500);
+		   }
+		   
+		   }
+           else {
+               $("#idbtn_caption_res_form").html("Check Empty Fields").fadeIn(200).fadeOut(1500);
+
+           }
+
+
+       }
+
+       function fn_recal(str_p_stype) {
+	  
+
+if(str_p_stype=="ris"){
+alert("a");
+$("#ris").show();
+$("#home").hide();
+}else if(str_p_stype=="hs"){
+alert("b");
+$("#ris").hide();
+$("#home").show();
+}
+       }
+	   
+	   
+function initialize() {
+  var myLatlng = new google.maps.LatLng(14.8288502,120.2862365);
+  var mapOptions = {
+    zoom: 18,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Hello World!'
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+  $("#idselect_sh").change(function() {
+       var v = $(this).val();
+	if(v == 1 || v == 2 || v == 3 ||  v == 4 || v == 5 || v == 6 || v == 7 || v == 8 || v == 12){
+	//alert('disable am');
+	$("select option:contains('AM')").attr("disabled","disabled");
+	$("select option:contains('PM')").attr('selected', true);
+		$('#idselect_su').selectmenu('refresh', true);
+	}
+	else if(v == 10 || v== 11){
+		//alert('enable am disable pm');
+		$("select option:contains('PM')").attr("disabled","disabled");
+			$("select option:contains('AM')").removeAttr("disabled");
+		$('#idselect_su').selectmenu('refresh', true);
+	}
+	else{
+	//alert('enable am');
+	$("select option:contains('AM')").removeAttr("disabled");
+	$("select option:contains('PM')").attr('selected', true);
+	$('#idselect_su').selectmenu('refresh', true);
+	
+	
+	}
+    });
+	
+	
+  
+	</script>
+    <script src="js/jquery_validate.js"></script>
+    <script src="js/index.js"></script>
+
+   
+</body>
+</html>
